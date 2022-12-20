@@ -8,10 +8,10 @@ function App() {
         <LogoLink>
           <img src={logoImage} alt="Logo do devMemory" />
         </LogoLink>
-        <InfoArea>...</InfoArea>
+        <InfoArea>InfoArea</InfoArea>
         <button>Reiniciar</button>
       </Info>
-      <Grid>...</Grid>
+      <Grid>Grid Container</Grid>
     </Container>
   );
 }
