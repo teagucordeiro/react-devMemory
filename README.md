@@ -1,7 +1,7 @@
 <h1 align="center">devMemory</h1>
 <!-- <img alt="Proffy" src="./github/banner.png"> -->
 <p align="center">
-  <img alt="Tamanho do Repositório" src="https://img.shields.io/github/repo-size/ThiagoCordeiro52/react-devMemorystyle=for-the-badge">
+  <img alt="Tamanho do Repositório" src="https://img.shields.io/github/repo-size/ThiagoCordeiro52/react-devMemory?style=for-the-badge">
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/ThiagoCordeiro52/react-devMemory?style=for-the-badge">
   <a href="https://github.com/ThiagoCordeiro52">
     <img alt="Made by Thiago Oliveira" src="https://img.shields.io/badge/feito%20por-Thiago Oliveira-%237519C1?style=for-the-badge">
