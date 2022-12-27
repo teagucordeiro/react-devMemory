@@ -38,7 +38,7 @@ function App() {
     let temporaryGrid: GridItemType[] = [];
     for (let i = 0; i < items.length * 2; i++) {
       temporaryGrid.push({
-        item: null,
+        itemPosition: null,
         shown: false,
         permanentShown: false,
       });
@@ -48,10 +48,10 @@ function App() {
     for (let j = 0; j < 2; j++) {
       for (let i = 0; i < items.length; i++) {
         let position = -1;
-        while (position < 0 || temporaryGrid[position].item !== null) {
+        while (position < 0 || temporaryGrid[position].itemPosition !== null) {
           position = Math.floor(Math.random() * (items.length * 2));
         }
-        temporaryGrid[position].item = i;
+        temporaryGrid[position].itemPosition = i;
       }
     }
 
