@@ -41,7 +41,7 @@ export const InfoArea = styled.div`
   }
 `;
 
-export const Grid = styled.div`
+export const GridContainer = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
@@ -50,4 +50,11 @@ export const Grid = styled.div`
     justify-content: center;
     margin: 0 20px;
   } ;
+`;
+
+export const Grid = styled.div`
+  width: 430px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
 `;

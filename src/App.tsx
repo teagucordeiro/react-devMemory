@@ -1,13 +1,31 @@
-import { Container, Info, LogoLink, InfoArea, Grid } from './styles';
+import { useEffect, useState } from 'react';
+import {
+  Container,
+  Info,
+  LogoLink,
+  InfoArea,
+  GridContainer,
+  Grid,
+} from './styles';
 import { InfoItem } from './components/InfoItem';
 import { Button } from './components/Button';
 
 import logoImage from './assets/devmemory_logo.png';
 import RestartIcon from './svgs/restart.svg';
-
+import { GridItemType } from './types/GridItemType';
 
 function App() {
+  const [playing, setPlaying] = useState<boolean>(false);
+  const [timeElapsed, setTimeElapsed] = useState<number>(0);
+  const [moveCount, setMoveCount] = useState<number>(0);
+  const [shownCount, setShownCount] = useState<number>(0);
+  const [gridItems, setGridItems] = useState<GridItemType[]>([]);
+
   function resetAndCreateGrid() {}
+
+  useEffect(() => {
+    resetAndCreateGrid();
+  }, []);
 
   return (
     <Container>
@@ -19,9 +37,15 @@ function App() {
           <InfoItem label="Tempo" value="00:00" />
           <InfoItem label="Movimentos" value="0" />
         </InfoArea>
-        <Button label="Reiniciar" icon={RestartIcon} onClick={resetAndCreateGrid}/>
+        <Button
+          label="Reiniciar"
+          icon={RestartIcon}
+          onClick={resetAndCreateGrid}
+        />
       </Info>
-      <Grid>Grid Container</Grid>
+      <GridContainer>
+        <Grid></Grid>
+      </GridContainer>
     </Container>
   );
 }
