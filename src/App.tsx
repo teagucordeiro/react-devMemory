@@ -16,6 +16,7 @@ import { items } from './data/items';
 
 import logoImage from './assets/devmemory_logo.png';
 import RestartIcon from './svgs/restart.svg';
+import { formatTimeElapsed } from './helpers/formatTimeElapsed';
 
 function App() {
   const [playing, setPlaying] = useState<boolean>(false);
@@ -27,6 +28,17 @@ function App() {
   useEffect(() => {
     resetAndCreateGrid();
   }, []);
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      if (playing) {
+        setTimeElapsed(timeElapsed + 1);
+      }
+    }, 1000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [timeElapsed, playing]);
 
   function resetAndCreateGrid() {
     // reset
@@ -71,7 +83,7 @@ function App() {
           <img src={logoImage} alt="Logo do devMemory" />
         </LogoLink>
         <InfoArea>
-          <InfoItem label="Tempo" value="00:00" />
+          <InfoItem label="Tempo" value={formatTimeElapsed(timeElapsed)} />
           <InfoItem label="Movimentos" value="0" />
         </InfoArea>
         <Button
