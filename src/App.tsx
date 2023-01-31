@@ -19,6 +19,7 @@ import RestartIcon from './svgs/restart.svg';
 import { formatTimeElapsed } from './helpers/formatTimeElapsed';
 
 function App() {
+  const [number, setNumber] = useState(1);
   const [playing, setPlaying] = useState<boolean>(false);
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [moveCount, setMoveCount] = useState<number>(0);
@@ -39,6 +40,48 @@ function App() {
       clearTimeout(timer);
     };
   }, [timeElapsed, playing]);
+
+  // verify if opened are equal
+  useEffect(() => {
+    if (shownCount === 2) {
+      const opened = gridItems.filter((item) => item.shown === true);
+      if (opened.length === 2) {
+        // if both are equal, make every "shown" permanent
+        if (opened[0].itemPosition === opened[1].itemPosition) {
+          const temporaryGrid = [...gridItems];
+          for (let i in temporaryGrid) {
+            if (temporaryGrid[i].shown) {
+              temporaryGrid[i].permanentShown = true;
+              temporaryGrid[i].shown = false;
+            }
+          }
+          setGridItems(temporaryGrid);
+          setShownCount(0);
+        } else {
+          // if they are NOT equal, close all "shown"
+          setTimeout(() => {
+            const temporaryGrid = [...gridItems];
+            for (let i in temporaryGrid) {
+              temporaryGrid[i].shown = false;
+            }
+            setGridItems(temporaryGrid);
+            setShownCount(0);
+          }, 1000);
+        }
+        setMoveCount(moveCount + 1);
+      }
+    }
+  }, [shownCount, gridItems]);
+
+  // verify if game is over
+  useEffect(() => {
+    if (
+      moveCount > 0 &&
+      gridItems.every((item) => item.permanentShown === true)
+    ) {
+      setPlaying(false);
+    }
+  }, [moveCount, gridItems]);
 
   function resetAndCreateGrid() {
     // reset
@@ -74,7 +117,21 @@ function App() {
     setPlaying(true);
   }
 
-  function handleItemClick(index: number) {}
+  function handleItemClick(index: number) {
+    if (playing && index !== null && shownCount < 2) {
+      let temporaryGrid = [...gridItems];
+
+      if (
+        temporaryGrid[index].permanentShown === false &&
+        temporaryGrid[index].shown === false
+      ) {
+        temporaryGrid[index].shown = true;
+        setShownCount(shownCount + 1);
+      }
+
+      setGridItems(temporaryGrid);
+    }
+  }
 
   return (
     <Container>
@@ -84,7 +141,7 @@ function App() {
         </LogoLink>
         <InfoArea>
           <InfoItem label="Tempo" value={formatTimeElapsed(timeElapsed)} />
-          <InfoItem label="Movimentos" value="0" />
+          <InfoItem label="Movimentos" value={String(moveCount)} />
         </InfoArea>
         <Button
           label="Reiniciar"
